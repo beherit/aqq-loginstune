@@ -59,12 +59,22 @@
 			<DynamicRTL>false</DynamicRTL>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="LoginsTune.cpp">
-				<BuildOrder>0</BuildOrder>
-			</CppCompile>
 			<ResFiles Include="LoginsTune.res">
 				<BuildOrder>1</BuildOrder>
 			</ResFiles>
+			<CppCompile Include="LoginsTune.cpp">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<RcItem Include="Data\Offline.wav">
+				<ContainerId>ResourceItem</ContainerId>
+				<ResourceType>RCData</ResourceType>
+				<ResourceId>ID_OFFLINE</ResourceId>
+			</RcItem>
+			<RcItem Include="Data\Online.wav">
+				<ContainerId>ResourceItem</ContainerId>
+				<ResourceType>RCData</ResourceType>
+				<ResourceId>ID_ONLINE</ResourceId>
+			</RcItem>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
@@ -88,7 +98,7 @@
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
-						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Release">1</VersionInfo>
 						<VersionInfo Name="Build">0</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
@@ -101,7 +111,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName">Krzysztof Grochocki (Beherit)</VersionInfoKeys>
 						<VersionInfoKeys Name="FileDescription"/>
-						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.0.1.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName">LoginsTune</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalCopyright">Krzysztof Grochocki (Beherit)</VersionInfoKeys>
 						<VersionInfoKeys Name="LegalTrademarks">Krzysztof Grochocki (Beherit)</VersionInfoKeys>

@@ -153,9 +153,9 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
    CreateDir(PluginUserDir + "\\\\LoginsTune");
   //Wypakowanie dzwiekow
   if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").t_str(),"ID_ON");
+   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").t_str(),"ID_ONLINE");
   if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").t_str(),"ID_OFF");
+   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").t_str(),"ID_OFFLINE");
   //Hook na polaczenie sieci przy starcie AQQ
   PluginLink.HookEvent(AQQ_SYSTEM_SETLASTSTATE,OnSetLastState);
   //Hook na zmiane stanu sieci
@@ -182,7 +182,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"LoginsTune";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,1,0);
   PluginInfo.Description = L"Wtyczka dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
