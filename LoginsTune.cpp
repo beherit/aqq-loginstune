@@ -67,7 +67,7 @@ void PlayLoginSound(bool OnLine)
 //---------------------------------------------------------------------------
 
 //Hook na polaczenie sieci przy starcie AQQ
-int __stdcall OnSetLastState (WPARAM wParam, LPARAM lParam)
+int __stdcall OnSetLastState(WPARAM wParam, LPARAM lParam)
 {
   //Pobranie stanu glownego konta
   TPluginStateChange PluginStateChange;
@@ -93,17 +93,17 @@ int __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
   //Pobranie informacji o zalogowaniu sie
   bool Authorized = StateChange->Authorized;
   //OnLine - Connecting
-  if((!OldState)&&(NewState)&&(!Authorized))
+  if((NewState)&&(!Authorized))
    NetworkConnecting = true;
   //OnLine - Connected
   if((NetworkConnecting)&&(Authorized)&&(NewState==OldState))
   {
-    //Pobranie stanu glownego konta
+	//Pobranie stanu konta
 	TPluginStateChange PluginStateChange;
-	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&PluginStateChange),0);
-	//Pobranie nowego stanu glownego konta
+	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&PluginStateChange),StateChange->UserIdx);
+	//Pobranie nowego stanu konta
 	int cNewState = PluginStateChange.NewState;
-	//Pobranie starego stanu glownego konta
+	//Pobranie starego stanu konta
 	int cOldState = PluginStateChange.OldState;
 	//OnLine
 	if((cNewState==cOldState)&&(cNewState==NewState)&&(cOldState==OldState))
@@ -125,18 +125,14 @@ int __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
 //---------------------------------------------------------------------------
 
 //Zapisywanie zasobów
-bool SaveResourceToFile(wchar_t* FileName, wchar_t* Res)
+void ExtractRes(wchar_t* FileName, wchar_t* ResName, wchar_t* ResType)
 {
-  HRSRC hrsrc = FindResource(HInstance, Res, RT_RCDATA);
-  if(!hrsrc) return false;
-  DWORD size = SizeofResource(HInstance, hrsrc);
-  HGLOBAL hglob = LoadResource(HInstance, hrsrc);
-  LPVOID rdata = LockResource(hglob);
-  HANDLE hFile = CreateFile(FileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-  DWORD writ;
-  WriteFile(hFile, rdata, size, &writ, NULL);
-  CloseHandle(hFile);
-  return true;
+  TPluginTwoFlagParams PluginTwoFlagParams;
+  PluginTwoFlagParams.cbSize = sizeof(TPluginTwoFlagParams);
+  PluginTwoFlagParams.Param1 = ResName;
+  PluginTwoFlagParams.Param2 = ResType;
+  PluginTwoFlagParams.Flag1 = (int)HInstance;
+  PluginLink.CallService(AQQ_FUNCTION_SAVERESOURCE,(WPARAM)&PluginTwoFlagParams,(LPARAM)FileName);
 }
 //---------------------------------------------------------------------------
 
@@ -177,7 +173,6 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
-  ChkSoundEnabled();
   //Pobranie sciezki do katalogu prywatnego uzytkownika
   PluginUserDir = GetPluginUserDir();
   //Folder wtyczki
@@ -186,15 +181,15 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
   //Wypakiwanie pliku Online.wav
   //357EDE8A246434C2D6DE9549B4FE6A19
   if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ID_ONLINE");
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ONLINE",L"DATA");
   else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Online.wav")!="357EDE8A246434C2D6DE9549B4FE6A19")
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ID_ONLINE");
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ONLINE",L"DATA");
   //Wypakiwanie pliku Offline.wav
   //F2921334AA507CC0ADB09766321F6CBE
   if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"ID_OFFLINE");
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"OFFLINE",L"DATA");
   else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav")!="F2921334AA507CC0ADB09766321F6CBE")
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"ID_OFFLINE");
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"OFFLINE",L"DATA");
   //Hook na polaczenie sieci przy starcie AQQ
   PluginLink.HookEvent(AQQ_SYSTEM_SETLASTSTATE,OnSetLastState);
   //Hook na zmiane stanu sieci
@@ -219,7 +214,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"LoginsTune";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,0,0);
   PluginInfo.Description = L"Wtyczka dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
