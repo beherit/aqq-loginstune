@@ -1,12 +1,11 @@
-//---------------------------------------------------------------------------
 #include <vcl.h>
 #include <windows.h>
-#include <mmsystem.h>
-#include <inifiles.hpp>
 #pragma hdrstop
 #pragma argsused
-#include "Aqq.h"
-//---------------------------------------------------------------------------
+#include <mmsystem.h>
+#include <inifiles.hpp>
+#include <PluginAPI.h>
+#include <IdHashMessageDigest.hpp>
 
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
 {
@@ -55,13 +54,13 @@ void PlayLoginSound(bool OnLine)
 	if(OnLine)
 	{
 	  if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-	   PlaySound((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").t_str(), NULL, SND_ASYNC | SND_FILENAME);
+	   PlaySound((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(), NULL, SND_ASYNC | SND_FILENAME);
 	}
 	//OffLine
 	else
 	{
       if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-	   PlaySound((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").t_str(), NULL, SND_ASYNC | SND_FILENAME);
+	   PlaySound((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(), NULL, SND_ASYNC | SND_FILENAME);
     }
   }
 }
@@ -126,9 +125,9 @@ int __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
 //---------------------------------------------------------------------------
 
 //Zapisywanie zasobów
-bool SaveResourceToFile(char *FileName, char *res)
+bool SaveResourceToFile(wchar_t* FileName, wchar_t* Res)
 {
-  HRSRC hrsrc = FindResource(HInstance, res, RT_RCDATA);
+  HRSRC hrsrc = FindResource(HInstance, Res, RT_RCDATA);
   if(!hrsrc) return false;
   DWORD size = SizeofResource(HInstance, hrsrc);
   HGLOBAL hglob = LoadResource(HInstance, hrsrc);
@@ -138,6 +137,39 @@ bool SaveResourceToFile(char *FileName, char *res)
   WriteFile(hFile, rdata, size, &writ, NULL);
   CloseHandle(hFile);
   return true;
+}
+//---------------------------------------------------------------------------
+
+//Obliczanie sumy kontrolnej pliku
+UnicodeString MD5File(UnicodeString FileName)
+{
+  if(FileExists(FileName))
+  {
+	UnicodeString Result;
+    TFileStream *fs;
+
+	fs = new TFileStream(FileName, fmOpenRead | fmShareDenyWrite);
+	try
+	{
+	  TIdHashMessageDigest5 *idmd5= new TIdHashMessageDigest5();
+	  try
+	  {
+	    Result = idmd5->HashStreamAsHex(fs);
+	  }
+	  __finally
+	  {
+	    delete idmd5;
+	  }
+    }
+	__finally
+    {
+	  delete fs;
+    }
+
+    return Result;
+  }
+  else
+   return 0;
 }
 //---------------------------------------------------------------------------
 
@@ -151,11 +183,18 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
   //Folder wtyczki
   if(!DirectoryExists(PluginUserDir + "\\\\LoginsTune"))
    CreateDir(PluginUserDir + "\\\\LoginsTune");
-  //Wypakowanie dzwiekow
+  //Wypakiwanie pliku Online.wav
+  //357EDE8A246434C2D6DE9549B4FE6A19
   if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").t_str(),"ID_ONLINE");
+   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ID_ONLINE");
+  else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Online.wav")!="357EDE8A246434C2D6DE9549B4FE6A19")
+   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ID_ONLINE");
+  //Wypakiwanie pliku Offline.wav
+  //F2921334AA507CC0ADB09766321F6CBE
   if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").t_str(),"ID_OFFLINE");
+   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"ID_OFFLINE");
+  else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav")!="F2921334AA507CC0ADB09766321F6CBE")
+   SaveResourceToFile((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"ID_OFFLINE");
   //Hook na polaczenie sieci przy starcie AQQ
   PluginLink.HookEvent(AQQ_SYSTEM_SETLASTSTATE,OnSetLastState);
   //Hook na zmiane stanu sieci
@@ -170,8 +209,6 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
   //Wyladowanie wszystkich hookow
   PluginLink.UnhookEvent(OnSetLastState);
   PluginLink.UnhookEvent(OnStateChange);
-  //Usuniecie wskaznikow do struktur
-  delete StateChange;
 
   return 0;
 }
@@ -182,7 +219,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"LoginsTune";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,1,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,0,0);
   PluginInfo.Description = L"Wtyczka dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
