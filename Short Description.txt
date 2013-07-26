@@ -1,0 +1,1 @@
+Wtyczka dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego. Funkcjonalnoœæ jest znana jeszcze z czasów AQQ 1.x.
