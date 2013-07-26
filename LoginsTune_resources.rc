@@ -1,2 +1,2 @@
-ID_OFFLINE RCDATA "Data\\Offline.wav"
-ID_ONLINE RCDATA "Data\\Online.wav"
+OFFLINE DATA "Data\\Offline.wav"
+ONLINE DATA "Data\\Online.wav"
