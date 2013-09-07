@@ -1,3 +1,24 @@
+//---------------------------------------------------------------------------
+// Copyright (C) 2012-2013 Krzysztof Grochocki
+//
+// This file is part of LoginsTune
+//
+// LoginsTune is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3, or (at your option)
+// any later version.
+//
+// LoginsTune is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with GNU Radio; see the file COPYING. If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street,
+// Boston, MA 02110-1301, USA.
+//---------------------------------------------------------------------------
+
 #include <vcl.h>
 #include <windows.h>
 #pragma hdrstop
@@ -16,7 +37,6 @@ int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved
 //Struktury-glowne-----------------------------------------------------------
 TPluginLink PluginLink;
 TPluginInfo PluginInfo;
-PPluginStateChange StateChange;
 //---------------------------------------------------------------------------
 bool NetworkConnecting = false;
 //Sciezka-do-katalogu-prywatnego-wtyczek-------------------------------------
@@ -85,13 +105,13 @@ int __stdcall OnSetLastState(WPARAM wParam, LPARAM lParam)
 int __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
 {
   //Pobranie informacji o stanie konta
-  StateChange = (PPluginStateChange)lParam;
+  TPluginStateChange StateChange = *(PPluginStateChange)lParam;
   //Pobranie nowego stanu konta
-  int NewState = StateChange->NewState;
+  int NewState = StateChange.NewState;
   //Pobranie starego stanu konta
-  int OldState = StateChange->OldState;
+  int OldState = StateChange.OldState;
   //Pobranie informacji o zalogowaniu sie
-  bool Authorized = StateChange->Authorized;
+  bool Authorized = StateChange.Authorized;
   //OnLine - Connecting
   if((NewState)&&(!Authorized))
    NetworkConnecting = true;
@@ -100,7 +120,7 @@ int __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
   {
 	//Pobranie stanu konta
 	TPluginStateChange PluginStateChange;
-	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&PluginStateChange),StateChange->UserIdx);
+	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)(&PluginStateChange),StateChange.UserIdx);
 	//Pobranie nowego stanu konta
 	int cNewState = PluginStateChange.NewState;
 	//Pobranie starego stanu konta
@@ -214,12 +234,14 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"LoginsTune";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,1,0);
   PluginInfo.Description = L"Wtyczka dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
   PluginInfo.Copyright = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.Homepage = L"http://beherit.pl";
+  PluginInfo.Flag = 0;
+  PluginInfo.ReplaceDefaultModule = 0;
 
   return &PluginInfo;
 }
