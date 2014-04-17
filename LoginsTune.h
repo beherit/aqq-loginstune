@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2012-2013 Krzysztof Grochocki
+// Copyright (C) 2012-2014 Krzysztof Grochocki
 //
 // This file is part of LoginsTune
 //

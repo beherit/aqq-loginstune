@@ -6,3 +6,4 @@ move Win64\Release\*.x64
 del Win64\Release\*.* /Q
 rd Win64\Release /Q
 rd Win64 /Q
+upx -9 --lzma *.x64

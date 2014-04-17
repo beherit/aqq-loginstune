@@ -1,3 +1,10 @@
+1.3.0.0
+-----
+* Zmiana formatu dŸwiêków na MP3.
+* Odtwarzanie dŸwiêków za pomoc¹ SDK.
+* Kompilacja pod poprawionymi nag³ówkami dla wersji 64-bitowej.
+* Zmniejszenie rozmiaru wtyczki 64-bitowej poprzez u¿ycie kompresji LZMA.
+
 1.2.1.0
 -----
 * Drobna zmiana w kodzie.

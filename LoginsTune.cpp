@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2012-2013 Krzysztof Grochocki
+// Copyright (C) 2012-2014 Krzysztof Grochocki
 //
 // This file is part of LoginsTune
 //
@@ -23,7 +23,6 @@
 #include <windows.h>
 #pragma hdrstop
 #pragma argsused
-#include <mmsystem.h>
 #include <inifiles.hpp>
 #include <PluginAPI.h>
 #include <IdHashMessageDigest.hpp>
@@ -74,20 +73,20 @@ void PlayLoginSound(bool OnLine)
 	if(OnLine)
 	{
 	  if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-	   PlaySound((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(), NULL, SND_ASYNC | SND_FILENAME);
+	   PluginLink.CallService(AQQ_SYSTEM_PLAYSOUND,(WPARAM)(PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),2);
 	}
 	//OffLine
 	else
 	{
-      if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-	   PlaySound((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(), NULL, SND_ASYNC | SND_FILENAME);
+	  if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
+	   PluginLink.CallService(AQQ_SYSTEM_PLAYSOUND,(WPARAM)(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),2);
     }
   }
 }
 //---------------------------------------------------------------------------
 
 //Hook na polaczenie sieci przy starcie AQQ
-int __stdcall OnSetLastState(WPARAM wParam, LPARAM lParam)
+INT_PTR __stdcall OnSetLastState(WPARAM wParam, LPARAM lParam)
 {
   //Pobranie stanu glownego konta
   TPluginStateChange PluginStateChange;
@@ -102,7 +101,7 @@ int __stdcall OnSetLastState(WPARAM wParam, LPARAM lParam)
 //---------------------------------------------------------------------------
 
 //Hook na zmiane stanu sieci
-int __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
+INT_PTR __stdcall OnStateChange(WPARAM wParam, LPARAM lParam)
 {
   //Pobranie informacji o stanie konta
   TPluginStateChange StateChange = *(PPluginStateChange)lParam;
@@ -189,7 +188,7 @@ UnicodeString MD5File(UnicodeString FileName)
 }
 //---------------------------------------------------------------------------
 
-extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
+extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
@@ -198,18 +197,18 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
   //Folder wtyczki
   if(!DirectoryExists(PluginUserDir + "\\\\LoginsTune"))
    CreateDir(PluginUserDir + "\\\\LoginsTune");
-  //Wypakiwanie pliku Online.wav
-  //357EDE8A246434C2D6DE9549B4FE6A19
-  if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ONLINE",L"DATA");
-  else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Online.wav")!="357EDE8A246434C2D6DE9549B4FE6A19")
-   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),L"ONLINE",L"DATA");
-  //Wypakiwanie pliku Offline.wav
-  //F2921334AA507CC0ADB09766321F6CBE
-  if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"OFFLINE",L"DATA");
-  else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav")!="F2921334AA507CC0ADB09766321F6CBE")
-   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),L"OFFLINE",L"DATA");
+  //Wypakiwanie pliku Online.mp3
+  //17A92B0E67518AF3BA0F82B54971390D
+  if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.mp3"))
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Online.mp3").w_str(),L"ONLINE",L"DATA");
+  else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Online.mp3")!="17A92B0E67518AF3BA0F82B54971390D")
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Online.mp3").w_str(),L"ONLINE",L"DATA");
+  //Wypakiwanie pliku Offline.mp3
+  //F6BFD843EFB45119FF60820F50FFC929
+  if(!FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.mp3"))
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Offline.mp3").w_str(),L"OFFLINE",L"DATA");
+  else if(MD5File(PluginUserDir + "\\\\LoginsTune\\\\Offline.mp3")!="F6BFD843EFB45119FF60820F50FFC929")
+   ExtractRes((PluginUserDir + "\\\\LoginsTune\\\\Offline.mp3").w_str(),L"OFFLINE",L"DATA");
   //Hook na polaczenie sieci przy starcie AQQ
   PluginLink.HookEvent(AQQ_SYSTEM_SETLASTSTATE,OnSetLastState);
   //Hook na zmiane stanu sieci
@@ -219,7 +218,7 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 }
 //---------------------------------------------------------------------------
 
-extern "C" int __declspec(dllexport) __stdcall Unload()
+extern "C" INT_PTR __declspec(dllexport) __stdcall Unload()
 {
   //Wyladowanie wszystkich hookow
   PluginLink.UnhookEvent(OnSetLastState);
@@ -234,11 +233,11 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"LoginsTune";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,1,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,0,0);
   PluginInfo.Description = L"Wtyczka dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.";
-  PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
+  PluginInfo.Author = L"Krzysztof Grochocki";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
-  PluginInfo.Copyright = L"Krzysztof Grochocki (Beherit)";
+  PluginInfo.Copyright = L"Krzysztof Grochocki";
   PluginInfo.Homepage = L"http://beherit.pl";
   PluginInfo.Flag = 0;
   PluginInfo.ReplaceDefaultModule = 0;

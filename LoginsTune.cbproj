@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{E993DA8D-E291-4885-9711-301F127F981F}</ProjectGuid>
-        <ProjectVersion>14.6</ProjectVersion>
+        <ProjectVersion>15.1</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
@@ -74,19 +74,17 @@
         <BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Keys>FileVersion=1.2.1.0;ProductName=LoginsTune;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.3.0.0;ProductName=LoginsTune;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <PackageImports>vclie;vcltouch;acntBuilderXE3;bcbsmp;CustomIPTransport;vclribbon;fmx;IndyIPServer;rtl;IndySystem;fmxase;vcl;IndyCore;acntBuilderXE3_R;IndyIPCommon;inetdbbde;DBXInterBaseDriver;inet;DataSnapCommon;fmxobj;vclx;xmlrtl;inetdbxpress;DbxCommonDriver;vclimg;fmxdae;dbxcds;IndyProtocols;MetropolisUILiveTile;vclactnband;bindengine;dbexpress;vcldb;bcbie;IndyIPClient;$(PackageImports)</PackageImports>
-        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>FileVersion=1.2.1.0;LegalCopyright=Krzysztof Grochocki (Beherit);ProductName=LoginsTune;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.3.0.0;LegalCopyright=Krzysztof Grochocki;ProductName=LoginsTune;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
@@ -110,44 +108,40 @@
         <ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
         <Defines>_DEBUG;$(Defines)</Defines>
-        <VerInfo_MinorVer>2</VerInfo_MinorVer>
-        <VerInfo_Keys>FileVersion=1.2.1.0;ProductName=LoginsTune;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=1.3.0.0;ProductName=LoginsTune;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Defines>_DEBUG;$(Defines)</Defines>
-        <VerInfo_Keys>FileVersion=1.2.1.0;LegalCopyright=Krzysztof Grochocki (Beherit);ProductName=LoginsTune;ProductVersion=1.0.0.0</VerInfo_Keys>
-        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=1.3.0.0;LegalCopyright=Krzysztof Grochocki;ProductName=LoginsTune;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
         <Defines>NDEBUG;$(Defines)</Defines>
-        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <LinkPackageStatics>rtl.lib;vcl.lib;IndyProtocols.lib;IndyCore.lib;IndySystem.lib</LinkPackageStatics>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>FileVersion=1.2.1.0;ProductName=LoginsTune;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.3.0.0;ProductName=LoginsTune;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Defines>NDEBUG;$(Defines)</Defines>
-        <VerInfo_Keys>FileVersion=1.2.1.0;LegalCopyright=Krzysztof Grochocki (Beherit);ProductName=LoginsTune;ProductVersion=1.0.0.0</VerInfo_Keys>
-        <VerInfo_MinorVer>2</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=1.3.0.0;LegalCopyright=Krzysztof Grochocki;ProductName=LoginsTune;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
     </PropertyGroup>
     <ItemGroup>
-        <RcItem Include="Data\Offline.wav">
+        <RcItem Include="Data\Offline.mp3">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>DATA</ResourceType>
             <ResourceId>OFFLINE</ResourceId>
         </RcItem>
-        <RcItem Include="Data\Online.wav">
+        <RcItem Include="Data\Online.mp3">
             <ContainerId>ResourceItem</ContainerId>
             <ResourceType>DATA</ResourceType>
             <ResourceId>ONLINE</ResourceId>
