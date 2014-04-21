@@ -1,18 +1,18 @@
 LoginsTune
 ======
-LoginsTune jest wtyczk¹ do komunikatora [AQQ](http://www.aqq.eu/pl.php). Dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.
+LoginsTune jest wtyczkÄ… do komunikatora [AQQ](http://www.aqq.eu/pl.php). Dodaje dÅºwiÄ™k zalogowania siÄ™ na gÅ‚Ã³wne konto Jabber oraz dÅºwiÄ™k wylogowania siÄ™ z niego.
 
-B³êdy
+BÅ‚Ä™dy
 -------
-Znalezione b³êdy wtyczki nale¿y zg³aszaæ w [tym temacie](http://forum.aqq.eu/topic/10456-loginstune/) znajduj¹cym na oficjalnym forum komunikatora AQQ lub pisz¹c bezpoœrednio do autora wtyczki (preferowany kontakt poprzez Jabber).
+Znalezione bÅ‚Ä™dy wtyczki naleÅ¼y zgÅ‚aszaÄ‡ w [tym temacie](http://forum.aqq.eu/topic/10456-loginstune/) znajdujÄ…cym na oficjalnym forum komunikatora AQQ lub piszÄ…c bezpoÅ›rednio do autora wtyczki (preferowany kontakt poprzez Jabber).
 
 Kontakt z autorem
 -------
-Autorem wtyczki LoginsTune jest Krzysztof Grochocki. Mo¿esz skontaktowaæ siê z nim drog¹ mailow¹ (kontakt@beherit.pl) lub poprzez Jabber (im@beherit.pl).
+Autorem wtyczki LoginsTune jest Krzysztof Grochocki. MoÅ¼esz skontaktowaÄ‡ siÄ™ z nim drogÄ… mailowÄ… (kontakt@beherit.pl) lub poprzez Jabber (im@beherit.pl).
 
 Licencja
 -------
-Wtyczka LoginsTune objêta jest licencj¹ [GNU General Public License 3](http://www.gnu.org/copyleft/gpl.html).
+Wtyczka LoginsTune objÄ™ta jest licencjÄ… [GNU General Public License 3](http://www.gnu.org/copyleft/gpl.html).
 
     LoginsTune
     Copyright (C) 2012-2014  Krzysztof Grochocki
