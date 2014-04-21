@@ -1,9 +1,9 @@
 1.3.0.0
 -----
-* Zmiana formatu düwiÍkÛw na MP3.
-* Odtwarzanie düwiÍkÛw za pomocπ SDK.
-* Kompilacja pod poprawionymi nag≥Ûwkami dla wersji 64-bitowej.
-* Zmniejszenie rozmiaru wtyczki 64-bitowej poprzez uøycie kompresji LZMA.
+* Zmiana formatu d≈∫wiƒôk√≥w na MP3.
+* Odtwarzanie d≈∫wiƒôk√≥w za pomocƒÖ SDK.
+* Kompilacja pod poprawionymi nag≈Ç√≥wkami dla wersji 64-bitowej.
+* Zmniejszenie rozmiaru wtyczki 64-bitowej poprzez u≈ºycie kompresji LZMA.
 
 1.2.1.0
 -----
@@ -12,9 +12,9 @@
 1.2.0.0
 -----
 * Dodanie 64-bitowej wersji wtyczki.
-* Zmiana sposobu wypakowywania plikÛw z zasobÛw wtyczki.
-* Zmniejszenie rozmiaru wtyczki 32-bitowej poprzez uøycie kompresji LZMA.
-* Inne mniej waøne zmiany w kodzie.
+* Zmiana sposobu wypakowywania plik√≥w z zasob√≥w wtyczki.
+* Zmniejszenie rozmiaru wtyczki 32-bitowej poprzez u≈ºycie kompresji LZMA.
+* Inne mniej wa≈ºne zmiany w kodzie.
 
 1.1.0.0
 -----
@@ -22,7 +22,7 @@
 
 1.0.1.0
 -----
-* Dodanie plikÛw düwiÍkowych do zasobÛw wtyczki.
+* Dodanie plik√≥w d≈∫wiƒôkowych do zasob√≥w wtyczki.
 
 1.0.0.0
 -----
