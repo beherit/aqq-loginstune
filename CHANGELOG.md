@@ -1,3 +1,7 @@
+1.3.2.0
+-----
+* Poprawne odtwarzanie dźwięków.
+
 1.3.0.0
 -----
 * Zmiana formatu dźwięków na MP3.

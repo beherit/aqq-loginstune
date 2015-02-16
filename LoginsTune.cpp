@@ -229,7 +229,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
 	PluginInfo.cbSize = sizeof(TPluginInfo);
 	PluginInfo.ShortName = L"LoginsTune";
-	PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,0,0);
+	PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,2,0);
 	PluginInfo.Description = L"Dodaje dŸwiêk zalogowania siê na g³ówne konto Jabber oraz dŸwiêk wylogowania siê z niego.";
 	PluginInfo.Author = L"Krzysztof Grochocki";
 	PluginInfo.AuthorMail = L"kontakt@beherit.pl";
