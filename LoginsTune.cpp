@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2012-2014 Krzysztof Grochocki
+// Copyright (C) 2012-2015 Krzysztof Grochocki
 //
 // This file is part of LoginsTune
 //
@@ -72,14 +72,14 @@ void PlayLoginSound(bool OnLine)
 	//OnLine
 	if(OnLine)
 	{
-	  if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.wav"))
-	   PluginLink.CallService(AQQ_SYSTEM_PLAYSOUND,(WPARAM)(PluginUserDir + "\\\\LoginsTune\\\\Online.wav").w_str(),2);
+		if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Online.mp3"))
+		 PluginLink.CallService(AQQ_SYSTEM_PLAYSOUND,(WPARAM)(PluginUserDir + "\\\\LoginsTune\\\\Online.mp3").w_str(),2);
 	}
 	//OffLine
 	else
 	{
-	  if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav"))
-	   PluginLink.CallService(AQQ_SYSTEM_PLAYSOUND,(WPARAM)(PluginUserDir + "\\\\LoginsTune\\\\Offline.wav").w_str(),2);
+	  if(FileExists(PluginUserDir + "\\\\LoginsTune\\\\Offline.mp3"))
+		 PluginLink.CallService(AQQ_SYSTEM_PLAYSOUND,(WPARAM)(PluginUserDir + "\\\\LoginsTune\\\\Offline.mp3").w_str(),2);
     }
   }
 }
